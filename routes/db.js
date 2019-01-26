@@ -11,7 +11,8 @@ var blogSchema = mongoose.Schema({
   title : String,
   time : String,
   content : String,
-  des: String
+  des: String,
+  status: Number // 0 保存，1 发布
 })
 
 var classificationSchema = mongoose.Schema({
@@ -19,9 +20,28 @@ var classificationSchema = mongoose.Schema({
   label: String
 })
 
+var userSchema = mongoose.Schema({
+  userName: String,
+  password: String
+})
+
 var Models = {
   Blog: mongoose.model('Blog', blogSchema),
-  Classification: mongoose.model('Classification', classificationSchema)
+  Classification: mongoose.model('Classification', classificationSchema),
+  User: mongoose.model('User', userSchema)
 }
+
+Models.User.find({}, (err, users) => {
+  if (err) console.log(err);
+  if (!users.length) {
+    let adminUser = new Models.User({
+      userName: 'admin',
+      password: 'wjnyjdc3'
+    })
+    adminUser.save((err, adminUser) => {
+      if (err) console.log(err);
+    })
+  }
+})
 
 module.exports = Models;
