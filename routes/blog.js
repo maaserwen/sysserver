@@ -7,7 +7,7 @@ const weekday = ["星期天","星期一","星期二","星期三","星期四","�
 //  save blog
 router.post('/saveBlog', function(req, res, next) {
   model.Blog.findOne({title: req.body.title}, function(err, blog) {
-    if (err) return console.error(err);
+    if (err) console.error(err);
     if (blog) {
       res.json({
         code: 0,

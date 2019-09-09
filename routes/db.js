@@ -1,7 +1,11 @@
 var mongoose = require('mongoose');
 
 mongoose.Promise = global.Promise;
-mongoose.connect('mongodb://localhost:27017/myblog');
+mongoose.connect('mongodb://127.0.0.1:27017/myblog', { useNewUrlParser: true }, (err, res) => {
+  if(err) {
+    console.log(err);
+  }
+});
 
 var db = mongoose.connection;
 db.on('error', (err) => console.log('err'));
@@ -21,8 +25,11 @@ var classificationSchema = mongoose.Schema({
 })
 
 var userSchema = mongoose.Schema({
-  userName: String,
-  password: String
+  username: String,
+  password: String,
+  mail: String,
+  photoPath: String,
+  isAdmin: Boolean
 })
 
 var Models = {
@@ -30,18 +37,5 @@ var Models = {
   Classification: mongoose.model('Classification', classificationSchema),
   User: mongoose.model('User', userSchema)
 }
-
-Models.User.find({}, (err, users) => {
-  if (err) console.log(err);
-  if (!users.length) {
-    let adminUser = new Models.User({
-      userName: 'admin',
-      password: 'wjnyjdc3'
-    })
-    adminUser.save((err, adminUser) => {
-      if (err) console.log(err);
-    })
-  }
-})
 
 module.exports = Models;

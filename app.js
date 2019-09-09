@@ -2,10 +2,6 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-var multiparty = require('multiparty');
-
-var mongoose = require('mongoose');
-mongoose.connect('blog');
 
 global.fileUrl = 'http://127.0.0.1:8080/'
 
@@ -19,7 +15,7 @@ var app = express();
 //allow custom header and CORS
 app.all('*',function (req, res, next) {
   res.header('Access-Control-Allow-Origin', '*');
-  res.header('Access-Control-Allow-Headers', 'Content-Type, Content-Length, Authorization, Accept, X-Requested-With , yourHeaderFeild');
+  res.header('Access-Control-Allow-Headers', 'Content-Type, Content-Length, Authorization, Accept, X-Requested-With , yourHeaderFeild, token');
   res.header('Access-Control-Allow-Methods', 'PUT, POST, GET, DELETE, OPTIONS');
 
   if (req.method == 'OPTIONS') {
