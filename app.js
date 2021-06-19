@@ -7,8 +7,8 @@ global.fileUrl = 'http://127.0.0.1:8080/'
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
-var blogRouter = require('./routes/blog');
-var fileRouter = require('./routes/file');
+var teacherRouter = require('./routes/teacher');
+var classRouter = require('./routes/class');
 
 var app = express();
 
@@ -34,7 +34,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
-app.use('/blog', blogRouter);
-app.use('/file', fileRouter);
+app.use('/teacher', teacherRouter);
+app.use('/class', classRouter);
 
 module.exports = app;

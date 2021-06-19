@@ -16,7 +16,7 @@ function generateToken(data){
 
 /* GET users listing. */
 router.post('/signUp', function(req, res, next) {
-  model.User.findOne({username: req.body.username}, function(err, user) {
+  model.User.findOne({username: req.body.username, role: req.body.role}, function(err, user) {
     if (err) {
       console.log(err);
     }
@@ -30,9 +30,7 @@ router.post('/signUp', function(req, res, next) {
       let newUser = new model.User({
         username: req.body.username,
         password: req.body.password,
-        mail: req.body.mail,
-        photoPath: '',
-        isAdmin: false
+        role: req.body.role
       })
       newUser.save(function(err, newUser) {
         if (err) {
@@ -47,8 +45,7 @@ router.post('/signUp', function(req, res, next) {
             user: {
               username: newUser.username,
               id: newUser._id,
-              photoPath: newUser.photoPath,
-              isAdmin: newUser.isAdmin
+              role: req.body.role
             }
           }
         })
@@ -58,7 +55,7 @@ router.post('/signUp', function(req, res, next) {
 })
 
 router.post('/signIn', function(req, res, next) {
-  model.User.findOne({username: req.body.username}, function(err, user) {
+  model.User.findOne({username: req.body.username, role: req.body.role}, function(err, user) {
     if (err) {
       console.log(err);
     }
@@ -79,8 +76,7 @@ router.post('/signIn', function(req, res, next) {
             user: {
               username: user.username,
               id: user._id,
-              photoPath: user.photoPath,
-              isAdmin: user.isAdmin
+              role: req.body.role
             }
           }
         })
